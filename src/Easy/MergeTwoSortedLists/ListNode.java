@@ -26,38 +26,25 @@ public class ListNode {
     }
 
     public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode result = new ListNode(0);
-        ListNode l1 = list1, l2 = list2, curNode = result;
-        int val1, val2, sum, dozenCarrier = 0;
-        while (l1 != null || l2 != null) {
-            if (l1 == null)
-                return result;
-            else
-                val1 = l1.val;
-
-            if (l2 == null)
-                return result;
-            else
-                val2 = l1.val;
-
-            if (val1 > val2){
-                result = new ListNode(val2);
-                result.next = new ListNode(val1);
+        if (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                list1.next = mergeTwoLists(list1.next, list2);
+                return list1;
+            } else {
+                list2.next = mergeTwoLists(list1, list2.next);
+                return list2;
             }
-            else{
-                result = new ListNode(val1);
-                result.next = new ListNode(val2);
-            }
-
         }
-        return result;
+        if (list1 == null)
+            return list2;
+        return list1;
     }
 
     @Override
     public String toString() {
-        return "ListNode{" +
-                "val=" + val +
-                ", next=" + next +
-                '}';
+        if (next != null) {
+            return val + ", " + next;
+        }
+        return String.valueOf(val);
     }
 }
